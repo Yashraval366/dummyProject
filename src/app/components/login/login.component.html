@@ -1,0 +1,103 @@
+<div class="auth-container" [class.sign-up-mode]="isSignUpMode">
+
+    <!-- LEFT SIDE – FORMS -->
+    <div class="forms-container">
+        <div class="signin-signup">
+
+            <!-- LOGIN -->
+            <form class="sign-in-form form-box" #formlogin="ngForm">
+                <h2 class="title">Login</h2>
+
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" [(ngModel)]="loginObj.email" name="loginEmail"
+                        #loginEmail="ngModel" required email [ngClass]="{
+                    'is-invalid': loginEmail.touched &&
+                    (loginEmail.errors?.['required'] || loginEmail.errors?.['email'])
+                    }" />
+                    <div class="invalid-feedback">
+                        <div *ngIf="loginEmail.errors?.['required']">Email Id is required</div>
+                        <div *ngIf="loginEmail.errors?.['email']">Email Incorrect format</div>
+                    </div>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" [(ngModel)]="loginObj.password" name="loginPassword"
+                        #loginPassword="ngModel" [ngClass]="{
+                    'is-invalid': loginPassword.touched && loginPassword.errors?.['required']
+                    }" required />
+                    <div class="invalid-feedback">
+                        <div *ngIf="loginPassword.errors?.['required']">Password is required</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary w-100 mt-3" type="button" [disabled]="formlogin.invalid"
+                    (click)="onLogin()">Login</button>
+            </form>
+
+            <!-- REGISTER -->
+            <form class="sign-up-form form-box" #form="ngForm">
+                <h2 class="title">Register</h2>
+
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input [ngClass]="{'is-invalid': fullName.errors?.['required'] && fullName.touched}" type="text"
+                        placeholder="Full Name" [(ngModel)]="registerObj.fullName" name="fullName" #fullName="ngModel"
+                        required />
+                    <div class="invalid-feedback">
+                        <div *ngIf="fullName.errors?.['required']">Full Name is required</div>
+                    </div>
+
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" [(ngModel)]="registerObj.email" name="email"
+                        #emailId="ngModel" required email
+                        [ngClass]="{'is-invalid': emailId.touched && (emailId.errors?.['required'] || emailId.errors?.['email'])}" />
+                    <div class="invalid-feedback">
+                        <div *ngIf="emailId.errors?.['required']">Email Id is required</div>
+                        <div *ngIf="emailId.errors?.['email']">Email Incorrect format</div>
+                    </div>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" [(ngModel)]="registerObj.password" name="password"
+                        #password="ngModel" required
+                        [ngClass]="{'is-invalid': password.touched && password.errors?.['required']}" />
+                    <div class="invalid-feedback">
+
+                        <div *ngIf="password.errors?.['required']">Password is required</div>
+
+                    </div>
+                </div>
+
+                <button class="btn btn-success w-100 mt-3" type="button" (click)="onRegister()"
+                    [disabled]="form.invalid">Register</button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE – PANEL -->
+    <div class="panels-container">
+        <div class="panel top-panel">
+            <div class="content">
+                <h3>New here?</h3>
+                <p>Create an account to get started.</p>
+                <button class="btn btn-outline-light" (click)="showSignUp()">Register</button>
+            </div>
+        </div>
+
+        <div class="panel bottom-panel">
+            <div class="content">
+                <h3>Already registered?</h3>
+                <p>Login to continue.</p>
+                <button class="btn btn-outline-light" (click)="showSignIn()">Login</button>
+            </div>
+        </div>
+    </div>
+
+</div>
